@@ -1,0 +1,6 @@
+Arbitrage/config.py
+/__pycache__
+Arbitrage/__pycache__
+*.txt
+*.csv
+*.json

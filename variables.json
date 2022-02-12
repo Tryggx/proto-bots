@@ -1,0 +1,8 @@
+{
+ "limit": 10,
+ "offset": 0,
+ "network": "bsc",
+ "token": "0x5e90253fbae4dab78aa351f4e6fed08a64ab5590",
+ "from": "2021-05-10T09:00Z",
+ "till": "2021-05-10T10:00Z"
+}
