@@ -28,9 +28,10 @@ for key,value in triangles.items():
 #from concurrent.futures import TimeoutError as ConnectionTimeoutError
 
 
-'''Finnur arbitrage með því að opna stream fyrir hvert par í þrennu til að fá verð'''
-'''ef ekkert profit finnst er lokað stream og farið í næstu þrennu og endurtekið'''
+'''Opens 3 streams for desired tickers and determines arbitrage, if none is found
+then the streams are closed and moved on to the next'''
 
+'''works faster then the single socket'''
 
 async def handle_stream(url, identifier, queue):
     try:
@@ -84,8 +85,6 @@ async def calculate(queue):
                 await websocket1.close()
                 raise Exception
         
-        '''Eftir að implementa tímamælingu'''
-        '''fara yfir hvort þetta sé að gera þetta concurrently, virkar eins og eigi að gerast hraðar'''
 
 async def main():
     for tickers in tickerlist:

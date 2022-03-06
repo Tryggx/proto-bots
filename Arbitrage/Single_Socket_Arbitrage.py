@@ -29,15 +29,14 @@ for key,value in triangles.items():
 #from concurrent.futures import TimeoutError as ConnectionTimeoutError
 
 
-'''Leitar að arbitrage með constant stream og iterate-ar í gegnum lista þar til rétt par í stream finnst'''
-'''Reiknar svo arbitrage'''
+'''Takes in a consant stream of all ticker, takes out the desired tickers and checks arbitrage'''
 
 
-
+'''stream handler'''
 async def handle_stream(ticker,queue,identifier):
         async with websockets.connect('wss://stream.binance.com:9443/ws/!bookTicker') as websocket1:
             while True:
-                message = await websocket1.recv()
+                message = await websocket1.recv() 
                 #async for ticker in tickerlist:
                 json_msg = json.loads(message)
                     #if websockets.recv() == websockets.pong():
@@ -48,7 +47,7 @@ async def handle_stream(ticker,queue,identifier):
                     await queue.put((json_msg,identifier,ticker))
                 
 
-
+'''arbitrage calculation'''
 async def calculate(queue):
     value_a = value_b = value_c = None
     profit = True
@@ -75,10 +74,10 @@ async def calculate(queue):
                 profit = False
                 raise Exception
         
-        '''Eftir að implementa tímamælingu'''
-        '''fara yfir hvort þetta sé að gera þetta concurrently, virkar eins og eigi að gerast hraðar'''
+#        Eftir að implementa tímamælingu
+#        fara yfir hvort þetta sé að gera þetta concurrently, virkar eins og eigi að gerast hraðar
 
-'''Staðfesta að stream sé ekki að lokast, myndi hægja á þessu.'''
+#Staðfesta að stream sé ekki að lokast, myndi hægja á þessu.
 
 async def main():
     for tickers in tickerlist:
